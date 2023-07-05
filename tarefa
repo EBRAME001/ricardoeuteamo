@@ -1,0 +1,151 @@
+import java.util.Scanner;
+
+public class Reserva {
+    private static int[] meses;
+    private static String[][][] lista;
+
+    public static void main(String[] args) {
+        saudacoes(args);
+    }
+
+    public static void saudacoes(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Bom dia \uD83D\uDE0A, como devo te chamar ?");
+        String nome = scanner.next();
+        System.out.println("É um prazer " + nome + " eu sou sua nova agenda \uD83E\uDD17");
+        System.out.println("Deseja ver um tutorial para melhor utilização ?\nSim - 1\nNão - 2\n");
+        int resposta = scanner.nextInt();
+
+        if (resposta == 1) {
+            System.out.println("Eu sou uma agenda personalizada");
+        } else {
+            System.out.println("Tudo bem! Então vamos continuar");
+        }
+        ano();
+    }
+
+    public static void ano() {
+        Scanner scanner = new Scanner(System.in);
+        int[] ano = {2023, 2024};
+        System.out.println("Digite o ano em que você está");
+        int respostaano = scanner.nextInt();
+
+        while (respostaano < 2023 || respostaano > 2024) {
+            System.out.println("Seu ano deve ser o atual ou o próximo! ");
+            respostaano = scanner.nextInt();
+        }
+
+        meses = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        if (respostaano == 2024) {
+            meses[1] = 29;
+            // É ano bissexto
+        }
+
+        lista = new String[12][][];
+        for (int i = 0; i < 12; i++) {
+            lista[i] = new String[meses[i]][3];
+        }
+
+        menuPrincipal();
+    }
+
+    public static void menuPrincipal() {
+        Scanner scanner = new Scanner(System.in);
+        int resposta;
+        do {
+            System.out.println("Escolha uma opção:");
+            System.out.println("1 - Adicionar Tarefa");
+            System.out.println("2 - Mostrar Mês");
+            System.out.println("3 - Sair");
+            resposta = scanner.nextInt();
+
+            switch (resposta) {
+                case 1:
+                    escolherMes();
+                    break;
+                case 2:
+                    MostrarMes.mostrarMes(meses, lista);
+                    break;
+                case 3:
+                    System.out.println("Até logo!");
+                    return;
+                default:
+                    System.out.println("Opção inválida!");
+                    break;
+            }
+        } while (true);
+    }
+
+    public static void escolherMes() {
+        Scanner scanner = new Scanner(System.in);
+        int resposta;
+        do {
+            System.out.println("Escolha o Mês em que quer anotar algo na agenda");
+            System.out.println("1 - Janeiro \n2 - Fevereiro \n3 - Março \n4 - Abril \n5 - Maio \n6 - Junho \n7 - Julho \n8 - Agosto \n9 - Setembro \n10 - Outubro \n11 - Novembro \n12 - Dezembro ");
+            resposta = scanner.nextInt() - 1;
+        } while (resposta < 0 || resposta > 11);
+
+        int numDias = meses[resposta];
+
+        String[][] mesAtual = lista[resposta];
+
+        System.out.println("Dias | Tarefa | Horário");
+        for (int i = 0; i < numDias; i++) {
+            System.out.print((i + 1) + " - ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(mesAtual[i][j] + " | ");
+            }
+            System.out.println();
+        }
+
+        System.out.println("Digite o dia em que deseja adicionar uma tarefa:");
+        int dia = scanner.nextInt();
+
+        if (dia < 1 || dia > numDias) {
+            System.out.println("Dia inválido!");
+            return;
+        }
+
+        System.out.println("Digite a tarefa:");
+        String tarefa = scanner.next();
+
+        System.out.println("Digite o horário:");
+        String horario = scanner.next();
+
+        mesAtual[dia - 1][0] = String.valueOf(dia);
+        mesAtual[dia - 1][1] = tarefa;
+        mesAtual[dia - 1][2] = horario;
+
+        System.out.println("Tarefa adicionada com sucesso!");
+
+        menuPrincipal();
+    }
+}
+
+class MostrarMes {
+    public static void mostrarMes(int[] meses, String[][][] lista) {
+        Scanner scanner = new Scanner(System.in);
+        int resposta;
+        do {
+            System.out.println("Escolha o Mês que deseja visualizar");
+            System.out.println("1 - Janeiro \n2 - Fevereiro \n3 - Março \n4 - Abril \n5 - Maio \n" +
+                    "6 - Junho \n7 - Julho \n8 - Agosto \n9 - Setembro \n10 - Outubro \n11 - Novembro " +
+                    "\n12 - Dezembro ");
+            resposta = scanner.nextInt() - 1;
+        } while (resposta < 0 || resposta > 11);
+
+        int numDias = meses[resposta];
+
+        String[][] mesAtual = lista[resposta];
+
+        System.out.println("Dias | Tarefa | Horário");
+        for (int i = 0; i < numDias; i++) {
+            System.out.print((i + 1) + " - ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(mesAtual[i][j] + " | ");
+            }
+            System.out.println();
+        }
+    }
+}
