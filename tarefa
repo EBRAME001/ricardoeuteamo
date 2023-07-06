@@ -17,7 +17,9 @@ public class Reserva {
         int resposta = scanner.nextInt();
 
         if (resposta == 1) {
-            System.out.println("Eu sou uma agenda personalizada");
+            System.out.println("Eu sou uma agenda personalizada somente feita com back-end em java");
+            System.out.println("Ainda estou na minha versão beta, porém já posso anotar o que você precisar durante todo o seu ano");
+            System.out.println("E caso ainda quiser eu posso mostrar os feriados que estão por vir !!!");
         } else {
             System.out.println("Tudo bem! Então vamos continuar");
         }
@@ -57,7 +59,8 @@ public class Reserva {
             System.out.println("Escolha uma opção:");
             System.out.println("1 - Adicionar Tarefa");
             System.out.println("2 - Mostrar Mês");
-            System.out.println("3 - Sair");
+            System.out.println("3 - Mostrar feriados");
+            System.out.println("4 - Sair");
             resposta = scanner.nextInt();
 
             switch (resposta) {
@@ -68,6 +71,8 @@ public class Reserva {
                     MostrarMes.mostrarMes(meses, lista);
                     break;
                 case 3:
+                    MostrarMes.feriados();
+                case 4:
                     System.out.println("Até logo!");
                     return;
                 default:
@@ -148,4 +153,54 @@ class MostrarMes {
             System.out.println();
         }
     }
+
+    public static void feriados() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("De qual ano você quer ver o feriado ?");
+        int anoresposta = scanner.nextInt();
+
+        String[][] feriados;
+
+        if (anoresposta == 2023) {
+            feriados = new String[][]{
+                    {"Ano Novo (Confraternização Universal)", "1º de janeiro", "Domingo"},
+                    {"Carnaval 2023", "18 a 21 de fevereiro", "Sábado a terça-feira"},
+                    {"Quarta-feira de cinzas", "22 de fevereiro", "Quarta-feira"},
+                    {"Sexta-feira Santa (Dia da Paixão de Cristo)", "7 de abril", "Sexta-feira"},
+                    {"Páscoa", "9 de abril", "Domingo"},
+                    {"Tiradentes", "21 de abril", "Sexta-feira"},
+                    {"Dia do Trabalho", "1º de maio", "Segunda-feira"},
+                    {"Corpus Christi", "8 de junho", "Quinta-feira"},
+                    {"Independência do Brasil", "7 de setembro", "Quinta-feira"},
+                    {"Nossa Senhora Aparecida e Dia das Crianças", "12 de outubro", "Quinta-feira"},
+                    {"Finados", "2 de novembro", "Quinta-feira"},
+                    {"Proclamação da república", "15 de novembro", "Quarta-feira"},
+                    {"Natal", "25 de dezembro", "Segunda-feira"}
+            };
+        } else {
+            feriados = new String[][]{
+                    {"1/1/24", "segunda-feira", "Confraternização Universal"},
+                    {"12/2/24", "segunda-feira", "Carnaval"},
+                    {"13/2/24", "terça-feira", "Carnaval"},
+                    {"29/3/24", "sexta-feira", "Paixão de Cristo"},
+                    {"21/4/24", "domingo", "Tiradentes"},
+                    {"1/5/24", "quarta-feira", "Dia do Trabalho"},
+                    {"30/5/24", "quinta-feira", "Corpus Christi"},
+                    {"7/9/24", "sábado", "Independência do Brasil"},
+                    {"12/10/24", "sábado", "Nossa Sr.a Aparecida - Padroeira do Brasil"},
+                    {"2/11/24", "sábado", "Finados"},
+                    {"15/11/24", "sexta-feira", "Proclamação da República"},
+                    {"25/12/24", "quarta-feira", "Natal"}
+            };
+        }
+
+        for (String[] feriado : feriados) {
+            System.out.println(String.join("\t", feriado));
+
+        }
+
+
+    }
+
 }
+
